@@ -2,52 +2,38 @@
 
 /* @var $this yii\web\View */
 
+use frontend\models\ProductRequest;
+use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Html;
+
+//$form = \frontend\models\ProductRequestForm::createNew();
+$model = new \frontend\models\ProductRequest();
 $this->title = 'Новая заявка';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">Здесь будет форма заявки.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
     <div class="body-content">
-
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+            <div class="col-lg-6 col-lg-offset-3">
+                <h1>
+                    Новая заявка на товар
+                </h1>
+                <?php $form = ActiveForm::begin([
+                    'id' => 'product-request-form',
+                    'action' => 'create-product-request',
+                ]); ?>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <?= $form->field($model, ProductRequest::COL_PRODUCT_ID)->dropDownList([1, 2, 3], ['autofocus' => true]) ?>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+                <?= $form->field($model, ProductRequest::COL_CLIENT_NAME)->textInput() ?>
+                <?= $form->field($model, ProductRequest::COL_CLIENT_PHONE)->textInput() ?>
+                <?= $form->field($model, ProductRequest::COL_CLIENT_COMMENT)->textarea(['rows' => 5]) ?>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <div class="form-group">
+                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
+                </div>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                <?php ActiveForm::end(); ?>
             </div>
         </div>
-
     </div>
 </div>

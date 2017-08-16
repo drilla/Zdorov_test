@@ -8,8 +8,6 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
- *
  * @property integer $id
  * @property string $username
  * @property string $password_hash
@@ -20,30 +18,19 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $role
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const STATUS_DELETED    = 'deleted';
+    const STATUS_NOT_ACTIVE = 'not_active';
+    const STATUS_ACTIVE     = 'active';
 
+    const ROLE_MANAGER = 'manager';
+    const ROLE_ADMIN   = 'admin';
+    const ROLE_NOBODY  = 'nobody';
 
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return '{{%user}}';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
+    public static function tableName() {return 'user';}
 
     /**
      * @inheritdoc
