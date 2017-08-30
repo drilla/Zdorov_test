@@ -3,7 +3,6 @@ namespace backend\models;
 
 use Yii;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -18,7 +17,6 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
- * @property string $role
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -28,7 +26,6 @@ class User extends ActiveRecord implements IdentityInterface
 
     const ROLE_MANAGER = 'manager';
     const ROLE_ADMIN   = 'admin';
-    const ROLE_NOBODY  = 'nobody';
 
     public static function tableName() {return 'user';}
 

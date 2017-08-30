@@ -51,7 +51,6 @@ class ProductRequest extends ActiveRecord
             [self::COL_CLIENT_COMMENT, 'string', 'max' => 1000],
             [self::COL_CLIENT_COMMENT, 'in', 'range' => self::STATUSES],
             [self::COL_STATUS, 'in', 'range' => self::STATUSES, 'on' => self::SCENARIO_DEFAULT],
-            [self::COL_STATUS, 'unsafe', 'on' => self::SCENARIO_CREATE],
             [self::COL_STATUS, 'default', 'value' => self::STATUS_NEW, 'on' => self::SCENARIO_CREATE],
         ];
     }
@@ -72,6 +71,16 @@ class ProductRequest extends ActiveRecord
         $productRequest->status   = self::STATUS_NEW;
 
         return $productRequest;
+    }
+
+    public function attributeLabels() {
+        return [
+            ProductRequest::COL_PRODUCT_ID => 'Товар',
+            ProductRequest::COL_CLIENT_NAME => 'Имя',
+            ProductRequest::COL_CLIENT_PHONE => 'Телефон',
+            ProductRequest::COL_CLIENT_COMMENT => 'Комметарий к заявке',
+            ProductRequest::COL_STATUS => 'Статус',
+        ];
     }
 
     public function getProduct() {

@@ -24,13 +24,5 @@ class ProductRequestForm extends Model
         ];
     }
 
-    public function attributeLabels() {
-        return [
-            ProductRequest::COL_PRODUCT_ID => 'Товар',
-            ProductRequest::COL_CLIENT_NAME => 'Имя',
-            ProductRequest::COL_CLIENT_PHONE => 'Телефон',
-            ProductRequest::COL_CLIENT_COMMENT => 'Комметарий к заявке',
-            ProductRequest::COL_STATUS => 'Статус',
-        ];
-    }
+
 }
