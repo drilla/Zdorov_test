@@ -2,15 +2,13 @@
 
 /**
  * @var $this yii\web\View
- * @var ProductRequest $productRequest
  */
 
 use frontend\models\ProductRequest;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 
-
-$model = $productRequest ?? new \frontend\models\ProductRequest();
+$model = new \frontend\models\ProductRequest();
 $this->title = 'Новая заявка';
 ?>
 <div class="site-index">
@@ -23,7 +21,7 @@ $this->title = 'Новая заявка';
                 <?php $form = ActiveForm::begin([
                     'id'                     => 'product-request-form',
                     'action'                 => \yii\helpers\Url::toRoute('create'),
-                    'enableClientValidation' => false,
+                    'enableClientValidation' => true,
                     'enableAjaxValidation'   => true,
                     'validationUrl'          => \yii\helpers\Url::toRoute('create'),
                 ]); ?>
