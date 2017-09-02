@@ -1,13 +1,16 @@
 <?php
 
-/* @var $this yii\web\View */
+/**
+ * @var $this yii\web\View
+ * @var ProductRequest $productRequest
+ */
 
 use frontend\models\ProductRequest;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 
-//$form = \frontend\models\ProductRequestForm::createNew();
-$model = new \frontend\models\ProductRequest();
+
+$model = $productRequest ?? new \frontend\models\ProductRequest();
 $this->title = 'Новая заявка';
 ?>
 <div class="site-index">
@@ -18,12 +21,14 @@ $this->title = 'Новая заявка';
                     Новая заявка на товар
                 </h1>
                 <?php $form = ActiveForm::begin([
-                    'id' => 'product-request-form',
-                    'action' => 'create-product-request',
+                    'id'                     => 'product-request-form',
+                    'action'                 => \yii\helpers\Url::toRoute('create'),
+                    'enableClientValidation' => false,
+                    'enableAjaxValidation'   => true,
+                    'validationUrl'          => \yii\helpers\Url::toRoute('create'),
                 ]); ?>
 
                 <?= $form->field($model, ProductRequest::COL_PRODUCT_ID)->dropDownList([1, 2, 3], ['autofocus' => true]) ?>
-
                 <?= $form->field($model, ProductRequest::COL_CLIENT_NAME)->textInput() ?>
                 <?= $form->field($model, ProductRequest::COL_CLIENT_PHONE)->textInput() ?>
                 <?= $form->field($model, ProductRequest::COL_CLIENT_COMMENT)->textarea(['rows' => 5]) ?>
@@ -31,7 +36,6 @@ $this->title = 'Новая заявка';
                 <div class="form-group">
                     <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
                 </div>
-
                 <?php ActiveForm::end(); ?>
             </div>
         </div>

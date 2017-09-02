@@ -15,6 +15,16 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'cookieValidationKey' => 'DSFgksdifhiw899734hekfDFGisjdfi9374',
+            'baseUrl' => '',
+        ],
+        'urlManager' => [
+            'class' => \yii\web\UrlManager::class,
+            'enablePrettyUrl' => true, // запрещаем r= routes
+            'showScriptName' => false, // запрещаем index.php
+            'rules' => [
+               // '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+               'create' => 'site/create'
+            ],
         ],
 
         'log' => [
