@@ -37,7 +37,6 @@ class RbacController extends Controller
      * admin : admin
      */
     public function _addAdmin() : User{
-        //
         $admin           = new User();
         $admin->username = 'admin';
         $admin->setPassword('admin');

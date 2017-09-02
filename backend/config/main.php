@@ -18,6 +18,15 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
+        'urlManager' => [
+            'class' => \yii\web\UrlManager::class,
+            'enablePrettyUrl' => true, // запрещаем r= routes
+            'showScriptName' => false, // запрещаем index.php
+            'rules' => [
+                '/' => 'site/index',
+                '<action:\w+>' => 'site/<action>',
+            ],
+        ],
         'user' => [
             'identityClass' => User::class,
             'enableAutoLogin' => true,
