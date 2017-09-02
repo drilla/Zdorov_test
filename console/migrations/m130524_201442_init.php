@@ -10,13 +10,12 @@ class m130524_201442_init extends Migration
 
         $this->createTable('user', [
             'id' => $this->primaryKey(),
-            'username' => $this->string()->notNull()->unique(),
-            'auth_key' => $this->string(32)->notNull(),
-            'password_hash' => $this->string()->notNull(),
-            'password_reset_token' => $this->string()->unique(),
-            'email' => $this->string()->notNull()->unique(),
+            'username' => $this->string(255)->notNull()->unique(),
+            'auth_key' => $this->string(255)->notNull(),
+            'password_hash' => $this->string(255)->notNull(),
             'status'     => "ENUM('not_active', 'active', 'deleted') NOT NULL DEFAULT 'not_active'",
             'created_at' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP',
+            'updated_at' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ], $tableOptions);
     }
 

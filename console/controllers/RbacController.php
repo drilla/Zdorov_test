@@ -1,7 +1,4 @@
 <?php
-/**
- * создаем необходимые роли в системе
- */
 
 namespace console\controllers;
 
@@ -12,6 +9,8 @@ class RbacController extends Controller
 {
     /**
      * достаточно выполнить один раз при инициализации проекта
+     *
+     * создаем необходимые роли в системе
      */
     public function actionInit() {
         $auth = \Yii::$app->authManager;
@@ -20,11 +19,32 @@ class RbacController extends Controller
         $auth->removeAll();
 
         // Создадим роли админа и редактора новостей
-        $admin  = $auth->createRole(User::ROLE_ADMIN);
-        $manager = $auth->createRole(User::ROLE_MANAGER);
+        $roleAdmin   = $auth->createRole(User::ROLE_ADMIN);
+        $roleManager = $auth->createRole(User::ROLE_MANAGER);
 
         // запишем их в БД
-        $auth->add($admin);
-        $auth->add($manager);
+        $auth->add($roleAdmin);
+        $auth->add($roleManager);
+
+        $initialAdmin = $this->_addAdmin();
+
+        //прописываем ему роль
+        $auth->assign($roleAdmin, $initialAdmin->getId());
+    }
+
+    /**
+     * добавляем одного простейшего админа в базу.
+     * admin : admin
+     */
+    public function _addAdmin() : User{
+        //
+        $admin           = new User();
+        $admin->username = 'admin';
+        $admin->setPassword('admin');
+        $admin->generateAuthKey();
+
+        $admin->save();
+
+        return $admin;
     }
 }
