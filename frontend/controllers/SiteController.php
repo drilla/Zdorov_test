@@ -4,29 +4,17 @@ namespace frontend\controllers;
 use frontend\models\ProductRequest;
 use Yii;
 use yii\bootstrap\ActiveForm;
-use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
+use yii\web\ErrorAction;
 use yii\web\Response;
 
 class SiteController extends Controller
 {
-    public function behaviors() {
-        return [
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'create-product-request' => ['post'],
-//                ],
-//            ],
-        ];
-    }
-
     public function actions() {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => ErrorAction::class,
             ]
         ];
     }
