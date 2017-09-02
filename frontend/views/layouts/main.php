@@ -25,6 +25,11 @@ AppAsset::register($this);
 
 <div class="wrap">
     <div class="container">
+        <div>
+            <a class="btn btn-primary pull-right" href="<?= Yii::$app->params['backendUrl']?>">
+                Администрирование
+            </a>
+        </div>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
