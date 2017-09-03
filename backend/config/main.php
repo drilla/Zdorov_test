@@ -21,16 +21,23 @@ return [
         'urlManager' => [
             'class' => \yii\web\UrlManager::class,
             'enablePrettyUrl' => true, // запрещаем r= routes
-            'showScriptName' => false, // запрещаем index.php
+            'showScriptName'  => false, // запрещаем index.php
             'rules' => [
-                '/' => 'site/index',
-                '<action:\w+>' => 'site/<action>',
+                'user'                 => 'user/list',
+                'user/edit/<id:\d+>'   => 'user/edit',
+                'user/delete/<id:\d+>' => 'user/delete',
+                'user/add'             => 'user/add',
+                '<action:\w+>'         => 'site/<action>',
+                '/'                    => 'site/index',
             ],
         ],
         'user' => [
             'identityClass' => User::class,
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+        ],
+        'authManager' => [
+            'class' => \yii\rbac\DbManager::class,
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend

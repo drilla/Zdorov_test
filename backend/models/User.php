@@ -4,6 +4,7 @@ namespace backend\models;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
+use yii\rbac\Role;
 use yii\validators\StringValidator;
 use yii\web\IdentityInterface;
 
@@ -67,7 +68,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username) {
+    public static function findByUsername(string $username) {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
@@ -107,5 +108,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function generateAuthKey() {
         $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
+    public function getRole() : Role {
+        $roles =  Yii::$app->authManager->getRolesByUser($this->getId());
+        if (count($roles) !== 1) throw new \DomainException('only one role allowed, roles = ' . (string) count($roles));
+        return array_pop($roles);
     }
 }

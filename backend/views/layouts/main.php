@@ -8,7 +8,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
@@ -42,6 +41,7 @@ AppAsset::register($this);
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Вход', 'url' => [Url::toRoute('login')]];
         } else {
+            $menuItems[] = ['label' => 'Пользователи', 'url' => [Url::toRoute('users')]];
             $menuItems[] = '<li>'
                 . Html::beginForm([Url::toRoute('logout')], 'post')
                 . Html::submitButton(
@@ -66,9 +66,8 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-            <p class="pull-right"><?= Yii::powered() ?></p>
+            <p class="pull-left">&copy; Кузнецов Василий 2017г.</p>
+            <p class="pull-right">Тестовое задание для "Здоров"</p>
         </div>
     </footer>
 <?php $this->endBody() ?>

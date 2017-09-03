@@ -26,6 +26,8 @@ class RbacController extends Controller
         $auth->add($roleAdmin);
         $auth->add($roleManager);
 
+        $auth->addChild($roleManager, $roleAdmin);
+
         $initialAdmin = $this->_addAdmin();
 
         //прописываем ему роль
