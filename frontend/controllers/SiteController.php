@@ -32,6 +32,7 @@ class SiteController extends Controller
         $newProductRequest = new ProductRequest();
         $newProductRequest->setScenario(ProductRequest::SCENARIO_CREATE);
         $newProductRequest->load($request->post());
+
         /**
          * провалидируем форму, если она пришла аяксом и отправим ответ
          */
@@ -45,7 +46,7 @@ class SiteController extends Controller
              * Форма должна быть проавлидирована, если это не так значит возможно данные формы изменились.
              */
             if (!$newProductRequest->validate()) {
-                throw new BadRequestHttpException(var_export($newProductRequest, true) .  'Переданы неправильные данные формы.');
+                throw new BadRequestHttpException('Переданы неправильные данные формы.');
             }
 
             return $this->redirect('success');

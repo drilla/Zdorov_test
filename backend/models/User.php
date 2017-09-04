@@ -5,15 +5,13 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\rbac\Role;
-use yii\validators\StringValidator;
 use yii\web\IdentityInterface;
 
 /**
  * @property integer $id
  * @property string $username
  * @property string $password_hash
- * -  @property string $password_reset_token
- *  - @property string $email
+ * - @property string $email
  * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
@@ -22,7 +20,6 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED    = 'deleted';
     const STATUS_NOT_ACTIVE = 'not_active';
     const STATUS_ACTIVE     = 'active';
 
@@ -44,20 +41,15 @@ class User extends ActiveRecord implements IdentityInterface
             [self::COL_STATUS, 'default', 'value' => self::STATUS_ACTIVE],
             [[self::COL_USERNAME, self::COL_PASSWORD_HASH], 'required'],
             [[self::COL_USERNAME, self::COL_PASSWORD_HASH], 'string', 'max' => 255],
-            [self::COL_STATUS, 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [self::COL_STATUS, 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE]],
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @return self*/
     public static function findIdentity($id) {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function findIdentityByAccessToken($token, $type = null) {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
