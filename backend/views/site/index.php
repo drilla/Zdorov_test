@@ -6,48 +6,75 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <div class="page-header">
+        <h1>Мини - CRM система</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <small>Тестовое задание</small>
     </div>
 
     <div class="body-content">
-
         <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+            <div class="col-lg-6">
+                <h2 class="text-info">Backend часть</h2>
+                <div>
+                    <h3>Раздел отображения пользователей системы</h3>
+                    <ul>
+                        <li>Отображение списка пользователей</li>
+                        <li>Возможность выставления прав пользователям, список («администратор», «менеджер»)</li>
+                        <li>Поля пользователя (email, пароль, статус)</li>
+                        <li>Удаление и редактирование пользователей</li>
+                        <li>Редактировать список могут только пользователи с правами «администратор»</li>
+                    </ul>
+                </div>
+                <div><h3>Раздел отображения заявок</h3>
+                    <ul>
+                        <li>Вывод списка заявок</li>
+                        <li>Поля у заявки (имя клиента, наименование заявки, наименование товара, телефон,
+                            время создания заявки, статус, комментарий, цена)
+                        </li>
+                        <li>Смена статуса заявки (новая, принята, отказана, брак)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Атворизация</h3>
+                    <ul>
+                        <li>Авторизация в системе. Поля для входа на форме (email, пароль)</li>
+                    </ul>
+                </div>
+                <div>                <h3>Раздел товаров</h3>
+                    <ul>
+                        <li>Список товаров</li>
+                        <li>Поля у товара (название, цена, статус)</li>
+                        <li>Смена статуса у товара (активный, неактивный)</li>
+                    </ul>
+                </div>
+                <div>                <h3>Раздел истории изменения заявок</h3>
+                    <ul>
+                        <li>Каким пользователям были изменены поля у заявки (имя клиента, наименование заявки,
+                            наименование товара, телефон, время подачи заявки, статус, комментарий, цена)
+                        </li>
+                    </ul>
+                </div>
+                <div>                <h3>Выгрузка</h3>
+                    <ul>
+                        <li>Добавить возможность выгрузки в CSV списка заявок, поля в CSV
+                            (имя клиента, наименование заявки, товар, цена, телефон, статус)
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-lg-6">
+                 <h2 class="text-info">Frontend часть</h2>
+                <div>
+                    <h3>Создать простую форму для отправки заявки с полями</h3>
+                    <ul>
+                        <li>Имя клиента</li>
+                        <li>Телефон</li>
+                        <li>Комментарий к заказу</li>
+                        <li>Список товаров (только активные)</li>
+                    </ul>
+                </div>
             </div>
         </div>
-
     </div>
 </div>

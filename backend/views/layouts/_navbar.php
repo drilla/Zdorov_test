@@ -9,7 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\helpers\Url;
 
 NavBar::begin([
-    'brandLabel' => 'Мини-CMS',
+    'brandLabel' => 'Мини-CRM система',
     'brandUrl'   => Yii::$app->homeUrl,
     'options'    => [
         'class' => 'navbar-inverse navbar-fixed-top',
