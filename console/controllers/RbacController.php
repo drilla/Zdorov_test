@@ -15,37 +15,41 @@ class RbacController extends Controller
     public function actionInit() {
         $auth = \Yii::$app->authManager;
 
-        //На всякий случай удаляем старые данные из БД...
+        //Сбрасываем RBAC
         $auth->removeAll();
+
+        //Удаляем всех пользователей
+        User::deleteAll();
 
         // Создадим роли админа и редактора новостей
         $roleAdmin   = $auth->createRole(User::ROLE_ADMIN);
         $roleManager = $auth->createRole(User::ROLE_MANAGER);
 
-        // запишем их в БД
         $auth->add($roleAdmin);
         $auth->add($roleManager);
-
         $auth->addChild($roleManager, $roleAdmin);
 
-        $initialAdmin = $this->_addAdmin();
 
-        //прописываем ему роль
-        $auth->assign($roleAdmin, $initialAdmin->getId());
+        /**
+         * добавляем в базу фиксированный набор пользователей. По заданию, не предусмотрено добавление пользователей
+         * Пароль одинаковый, для простоты провекри работы
+         */
+
+        $auth->assign($roleAdmin, $this->_createUser('admin', 'qwerty')->getId());
+        $auth->assign($roleAdmin, $this->_createUser('chief', 'qwerty')->getId());
+        $auth->assign($roleManager, $this->_createUser('employee', 'qwerty')->getId());
+        $auth->assign($roleManager, $this->_createUser('manager', 'qwerty')->getId());
+        $auth->assign($roleManager, $this->_createUser('redactor', 'qwerty')->getId());
+        $auth->assign($roleManager, $this->_createUser('handyman', 'qwerty')->getId());
     }
 
-    /**
-     * добавляем одного простейшего админа в базу.
-     * admin : admin
-     */
-    public function _addAdmin() : User{
-        $admin           = new User();
-        $admin->username = 'admin';
-        $admin->setPassword('admin');
-        $admin->generateAuthKey();
+    protected function _createUser($name, $password) : User {
+        $user           = new User();
+        $user->username = $name;
+        $user->setPassword($password);
+        $user->generateAuthKey();
+        $user->save();
 
-        $admin->save();
-
-        return $admin;
+        return $user;
     }
 }
