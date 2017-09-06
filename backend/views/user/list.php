@@ -7,6 +7,7 @@
 use backend\models\User;
 use yii\bootstrap\Modal;
 use \yii\helpers\Url;
+use \frontend\views\helpers;
 
 $this->title = 'Список пользователей'
 ?>
@@ -37,11 +38,11 @@ $this->title = 'Список пользователей'
     <tbody class="table-hover">
     <?php foreach ($users as $user) : ?>
         <tr>
-            <td><?=$user->username?></td>
-            <td><?=$user->status?></td>
-            <td><?=$user->getRole()->name?></td>
-            <td><?=$user->created_at?></td>
-            <td><?=$user->updated_at?></td>
+            <td><?= $user->username ?></td>
+            <td><?= helpers\User::status($user->status) ?></td>
+            <td><?= helpers\User::getRoleName($user->getRole()) ?></td>
+            <td><?= $user->created_at ?></td>
+            <td><?= $user->updated_at ?></td>
             <?php if (Yii::$app->user->can(User::ROLE_ADMIN)) : ?>
                 <td>
 

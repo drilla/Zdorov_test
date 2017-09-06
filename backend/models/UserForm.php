@@ -12,8 +12,6 @@ class UserForm extends Model
     public $created_at;
     public $updated_at;
 
-    const SCENARIO_CREATE = 'create';
-
     public static function create(User $user) : self {
         $form             = new self();
         $form->user_id    = $user->getId();
@@ -28,9 +26,10 @@ class UserForm extends Model
 
     public function rules() {
         return [
-            ['user_id', 'required', 'on' => self::SCENARIO_DEFAULT],
-            ['username', 'required'],
-            ['role', 'required'],
+            [['user_id', 'username', 'role', 'status'], 'required'],
+            ['user_id', 'integer'],
+            ['status', 'in', 'range' => User::STATUSES],
+            ['role', 'in', 'range' => User::ROLES],
         ];
     }
 }

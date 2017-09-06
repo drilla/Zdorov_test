@@ -13,7 +13,7 @@ class m130524_201442_init extends Migration
             'username' => $this->string(255)->notNull()->unique(),
             'auth_key' => $this->string(255)->notNull(),
             'password_hash' => $this->string(255)->notNull(),
-            'status'     => "ENUM('not_active', 'active', 'deleted') NOT NULL DEFAULT 'not_active'",
+            'status'     => "ENUM('not_active', 'active') NOT NULL DEFAULT 'not_active'",
             'created_at' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP',
             'updated_at' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ], $tableOptions);

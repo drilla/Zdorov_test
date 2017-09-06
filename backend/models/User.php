@@ -22,9 +22,11 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_NOT_ACTIVE = 'not_active';
     const STATUS_ACTIVE     = 'active';
+    const STATUSES          = [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE];
 
     const ROLE_MANAGER = 'manager';
     const ROLE_ADMIN   = 'admin';
+    const ROLES        = [self::ROLE_ADMIN, self::ROLE_MANAGER];
 
     const COL_USERNAME      = 'username';
     const COL_PASSWORD_HASH = 'password_hash';
@@ -33,15 +35,14 @@ class User extends ActiveRecord implements IdentityInterface
     const COL_CREATED_AT    = 'created_at';
     const COL_UPDATED_AT    = 'updated_at';
 
-
     public static function tableName() {return 'user';}
 
     public function rules() {
         return [
             [self::COL_STATUS, 'default', 'value' => self::STATUS_ACTIVE],
-            [[self::COL_USERNAME, self::COL_PASSWORD_HASH], 'required'],
-            [[self::COL_USERNAME, self::COL_PASSWORD_HASH], 'string', 'max' => 255],
-            [self::COL_STATUS, 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE]],
+            [[self::COL_USERNAME, self::COL_PASSWORD_HASH, self::COL_AUTH_KEY], 'required'],
+            [[self::COL_USERNAME, self::COL_PASSWORD_HASH, self::COL_AUTH_KEY], 'string', 'max' => 255],
+            [self::COL_STATUS, 'in', 'range' => self::STATUSES],
         ];
     }
 

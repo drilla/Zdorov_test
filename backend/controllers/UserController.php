@@ -38,6 +38,7 @@ class UserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+                    'list'     => ['get'],
                     'edit'     => ['get'],
                     'delete'   => ['post'],
                     'save'     => ['post'],
@@ -48,7 +49,7 @@ class UserController extends Controller
     }
 
     public function actionList() {
-        $users = User::find()->limit(1000)->all();
+        $users = User::find()->all();
 
         return $this->render('list', ['users' => $users]);
     }
@@ -133,17 +134,8 @@ class UserController extends Controller
 
         if (!$user) throw new NotFoundHttpException('Пользователь не найден');
 
-        //$user->delete(); TODO
+       $user->delete();
 
         return $this->asJson(['redirect' => Url::toRoute('user/list')]);
-    }
-
-    /**
-     * todo временно для фиксов!
-     */
-    public function actionFix() {
-        \Yii::$app->getAuthManager()->assign(\Yii::$app->getAuthManager()->getRole('admin'), 3);
-
-        $this->goHome();
     }
 }
