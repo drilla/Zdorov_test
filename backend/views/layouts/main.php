@@ -27,36 +27,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
     <div class="wrap">
-        <?php
-        NavBar::begin([
-            'brandLabel' => 'Мини-CMS',
-            'brandUrl'   => Yii::$app->homeUrl,
-            'options'    => [
-                'class' => 'navbar-inverse navbar-fixed-top',
-            ],
-        ]);
-        $menuItems = [
-            ['label' => 'На главную', 'url' => [Url::home()]],
-        ];
-        if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => 'Вход', 'url' => [Url::toRoute('login')]];
-        } else {
-            $menuItems[] = ['label' => 'Пользователи', 'url' => [Url::toRoute('user/list')]];
-            $menuItems[] = '<li>'
-                . Html::beginForm([Url::toRoute('logout')], 'post')
-                . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>';
-        }
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => $menuItems,
-        ]);
-        NavBar::end();
-        ?>
+        <?= $this->render('_navbar')?>
 
         <div class="container">
             <?= Alert::widget() ?>
