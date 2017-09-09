@@ -1,7 +1,6 @@
 <?php
 namespace backend\models;
 
-use common\rbac\Rbac;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
@@ -24,8 +23,6 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_NOT_ACTIVE = 'not_active';
     const STATUS_ACTIVE     = 'active';
     const STATUSES          = [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE];
-
-    const ROLES = [Rbac::ROLE_ADMIN, Rbac::ROLE_MANAGER];
 
     const COL_USERNAME      = 'username';
     const COL_EMAIL         = 'email';
@@ -108,5 +105,12 @@ class User extends ActiveRecord implements IdentityInterface
         $roles =  Yii::$app->authManager->getRolesByUser($this->getId());
         if (count($roles) !== 1) throw new \DomainException('only one role allowed, roles = ' . (string) count($roles));
         return array_pop($roles);
+    }
+
+    /**
+     * имеет ли пользователь данную роль
+     */
+    public function is(string $roleName) : bool {
+        return $this->getRole()->name === $roleName;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace backend\controllers;
 
-use common\rbac\Rbac;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -17,8 +16,8 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     ['actions' => ['index', 'error'], 'allow' => true],
-                    ['actions' => ['login'], 'allow' => true, 'roles' => [Rbac::ROLES_NOT_AUTHORIZED]],
-                    ['actions' => ['logout'], 'allow' => true, 'roles' => [Rbac::PERM_SITE_LOGOUT],
+                    ['actions' => ['login'], 'allow' => true, 'roles' => ['?']],
+                    ['actions' => ['logout'], 'allow' => true, 'roles' => ['@'],
                     ],
                 ],
             ],

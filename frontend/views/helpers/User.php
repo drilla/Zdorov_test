@@ -2,7 +2,6 @@
 namespace frontend\views\helpers;
 
 use backend\models;
-use common\rbac\Rbac;
 use yii\rbac\Role as UserRole;
 
 class User
@@ -27,8 +26,8 @@ class User
 
     public static function getRoleName(UserRole $role) : string {
         switch ($role->name) {
-            case Rbac::ROLE_ADMIN : return 'Администратор';
-            case Rbac::ROLE_MANAGER : return 'Менеджер';
+            case \backend\components\User::ROLE_ADMIN : return 'Администратор';
+            case \backend\components\User::ROLE_MANAGER : return 'Менеджер';
             default : return 'неизвестно';
         }
     }

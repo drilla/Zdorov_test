@@ -17,8 +17,7 @@ class OrderController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['actions' => ['list'], 'allow' => true, 'roles' => [Rbac::PERM_ORDER_LIST]],
-                    ['actions' => ['stateChange'], 'allow' => true, 'roles' => [Rbac::PERM_ORDER_STATE_CHANGE]],
+                    ['actions' => ['list', 'stateChange'], 'allow' => true, 'roles' => ['@']],
                 ],
             ],
             'verbs'  => [

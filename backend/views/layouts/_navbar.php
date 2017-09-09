@@ -7,7 +7,6 @@ use yii\bootstrap\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Url;
-use \common\rbac\Rbac;
 
 NavBar::begin([
     'brandLabel' => 'Мини-CRM система',
@@ -17,28 +16,25 @@ NavBar::begin([
     ],
 ]);
 
+/** @var \backend\components\User $user */
 $user = Yii::$app->user;
 $menuItems = [];
 
-if ($user->can(Rbac::PERM_SITE_INDEX)) {
-    $menuItems[] = ['label' => 'На главную', 'url' => [Url::home()]];
-}
-
-
+$menuItems[] = ['label' => 'На главную', 'url' => [Url::home()]];
 $menuItems[] = ['label' => 'Подать заявку', 'url' => '//' . Url::to(Yii::$app->params['frontendHost'])];
 
-if ($user->getIsGuest()) {
+if ($user->isGuest()) {
     $menuItems[] = ['label' => 'Вход', 'url' => Url::toRoute('login')];
 }
-if ($user->can(Rbac::PERM_ORDER_LIST)) {
+if ($user->isManager() || $user->isAdmin()) {
     $menuItems[] = ['label' => 'Заявки', 'url' => Url::toRoute('order/list')];
 }
 
-if ($user->can(Rbac::PERM_USER_LIST)) {
+if ($user->isManager() || $user->isAdmin()) {
     $menuItems[] = ['label' => 'Пользователи', 'url' => Url::toRoute('user/list')];
 }
 
-if ($user->can(Rbac::PERM_SITE_LOGOUT)) {
+if (!$user->isGuest()) {
     /** @var \backend\models\User $identity */
     $identity = $user->getIdentity();
     $role =  \frontend\views\helpers\User::getRoleName($identity->getRole());
