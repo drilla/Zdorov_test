@@ -50,7 +50,7 @@ class RbacController extends Controller
 
         /**
          * добавляем в базу фиксированный набор пользователей. По заданию, не предусмотрено добавление пользователей
-         * Пароль одинаковый, для простоты провекри работы
+         * Пароль одинаковый, для простоты провекри работы - qwerty
          */
 
         //админы
@@ -58,15 +58,18 @@ class RbacController extends Controller
         $auth->assign($roleAdmin, $this->_createUser('chief', 'qwerty')->getId());
 
         //менеджеры
-        $auth->assign($roleManager, $this->_createUser('employee', 'qwerty')->getId());
-        $auth->assign($roleManager, $this->_createUser('manager', 'qwerty')->getId());
-        $auth->assign($roleManager, $this->_createUser('redactor', 'qwerty')->getId());
-        $auth->assign($roleManager, $this->_createUser('handyman', 'qwerty')->getId());
+        $auth->assign($roleManager, $this->_createUser('employee')->getId());
+        $auth->assign($roleManager, $this->_createUser('manager')->getId());
+        $auth->assign($roleManager, $this->_createUser('redactor')->getId());
+        $auth->assign($roleManager, $this->_createUser('handyman')->getId());
     }
 
-    protected function _createUser($name, $password) : User {
+    protected function _createUser($name, $password = 'qwerty', $email = null) : User {
+
+        $email = $email ?? $name . '@example.com';
         $user           = new User();
         $user->username = $name;
+        $user->email    = $email;
         $user->setPassword($password);
         $user->generateAuthKey();
         $user->save();

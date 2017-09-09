@@ -16,6 +16,10 @@ $this->title = 'My Yii Application';
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="text-info">Backend часть</h2>
+                <div class="text-warning">
+                    Для входа воспользуйтесь admin:qwerty<br/>
+                    Для всех остальных пользователей - пароль qwerty
+                </div>
                 <div>
                     <h3>Раздел отображения пользователей системы</h3>
                     <ul>

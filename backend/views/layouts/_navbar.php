@@ -35,10 +35,13 @@ if ($user->can(Rbac::PERM_USER_LIST)) {
 }
 
 if ($user->can(Rbac::PERM_SITE_LOGOUT)) {
+    /** @var \backend\models\User $identity */
+    $identity = $user->getIdentity();
+    $role =  \frontend\views\helpers\User::getRoleName($identity->getRole());
     $menuItems[] = '<li>'
         . Html::beginForm([Url::toRoute('site/logout')], 'post')
         . Html::submitButton(
-            'Выйти (' . $user->identity->username . ')',
+            'Выйти (' .$role .':' . $identity->username . ')',
             ['class' => 'btn btn-link logout']
         )
         . Html::endForm()

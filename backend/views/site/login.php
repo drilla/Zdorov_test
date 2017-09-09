@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Пользователь') ?>
+                <?= $form->field($model, 'usernameOrEmail')->textInput(['autofocus' => true])->label('Имя или почта') ?>
 
                 <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
 

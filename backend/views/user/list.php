@@ -30,7 +30,7 @@ $this->title = 'Список пользователей'
         <th>Роль</th>
         <th>Создан</th>
         <th>Обновлен</th>
-        <?php if (Yii::$app->user->can(User::ROLE_ADMIN)) : ?>
+        <?php if (Yii::$app->user->can(\common\rbac\Rbac::ROLE_ADMIN)) : ?>
             <th>Управление</th>
         <?php endif; ?>
     </tr>
@@ -40,15 +40,15 @@ $this->title = 'Список пользователей'
         <tr>
             <td><?= $user->username ?>
 
-                <?php if ($user->email) :?>
-                    <br/>(<?=$user->email?>)
+                <?php if ($user->email) : ?>
+                    <br/>(<?= $user->email ?>)
                 <?php endif;?>
             </td>
             <td><?= helpers\User::status($user->status) ?></td>
             <td><?= helpers\User::getRoleName($user->getRole()) ?></td>
             <td><?= $user->created_at ?></td>
             <td><?= $user->updated_at ?></td>
-            <?php if (Yii::$app->user->can(User::ROLE_ADMIN)) : ?>
+            <?php if (Yii::$app->user->can(\common\rbac\Rbac::ROLE_ADMIN)) : ?>
                 <td>
 
                     <a class="btn btn-success" title="Редактировать" href="<?=Url::toRoute(['user/edit', 'id' => $user->getId()]) ?>">

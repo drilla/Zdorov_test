@@ -1,6 +1,7 @@
 <?php
 namespace backend\models;
 
+use common\rbac\Rbac;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
@@ -24,9 +25,7 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_ACTIVE     = 'active';
     const STATUSES          = [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE];
 
-    const ROLE_MANAGER = 'manager';
-    const ROLE_ADMIN   = 'admin';
-    const ROLES        = [self::ROLE_ADMIN, self::ROLE_MANAGER];
+    const ROLES = [Rbac::ROLE_ADMIN, Rbac::ROLE_MANAGER];
 
     const COL_USERNAME      = 'username';
     const COL_EMAIL         = 'email';
@@ -48,23 +47,23 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    /** @return self*/
+    /** @return self | null */
     public static function findIdentity($id) {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, self::COL_STATUS => self::STATUS_ACTIVE]);
     }
 
     public static function findIdentityByAccessToken($token, $type = null) {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
+    /** @return static | null */
     public static function findByUsername(string $username) {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne([self::COL_USERNAME => $username, self::COL_STATUS => self::STATUS_ACTIVE]);
+    }
+
+    /** @return static | null */
+    public static function findByEmail(string $email) {
+        return static::findOne([self::COL_EMAIL => $email, self::COL_STATUS => self::STATUS_ACTIVE]);
     }
 
     public function getId() {
