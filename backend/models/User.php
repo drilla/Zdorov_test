@@ -11,7 +11,7 @@ use yii\web\IdentityInterface;
  * @property integer $id
  * @property string $username
  * @property string $password_hash
- * - @property string $email
+ * @property string $email
  * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
@@ -29,6 +29,7 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLES        = [self::ROLE_ADMIN, self::ROLE_MANAGER];
 
     const COL_USERNAME      = 'username';
+    const COL_EMAIL         = 'email';
     const COL_PASSWORD_HASH = 'password_hash';
     const COL_AUTH_KEY      = 'auth_key';
     const COL_STATUS        = 'status';
@@ -41,7 +42,8 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [self::COL_STATUS, 'default', 'value' => self::STATUS_ACTIVE],
             [[self::COL_USERNAME, self::COL_PASSWORD_HASH, self::COL_AUTH_KEY], 'required'],
-            [[self::COL_USERNAME, self::COL_PASSWORD_HASH, self::COL_AUTH_KEY], 'string', 'max' => 255],
+            [[self::COL_USERNAME, self::COL_PASSWORD_HASH, self::COL_AUTH_KEY, self::COL_EMAIL], 'string', 'max' => 255],
+            [self::COL_EMAIL, 'email'],
             [self::COL_STATUS, 'in', 'range' => self::STATUSES],
         ];
     }

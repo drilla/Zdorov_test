@@ -26,6 +26,7 @@ $this->title = 'Редактирование пользователя'
 
             <?= $form->field($userForm, 'user_id')->hiddenInput()->label(false) ?>
             <?= $form->field($userForm, 'username')->textInput(['autofocus' => true])->label('Пользователь') ?>
+            <?= $form->field($userForm, 'email')->textInput(['autofocus' => true])->label('Почта') ?>
             <?= $form->field($userForm, 'role')->dropDownList(\frontend\views\helpers\User::getRoleDropDownItems())->label('Тип') ?>
             <?= $form->field($userForm, 'status')->dropDownList(\frontend\views\helpers\User::getStatusDropDownItems())->label('Статус') ?>
             <?= $form->field($userForm, 'created_at')->label('Создан')->staticControl() ?>

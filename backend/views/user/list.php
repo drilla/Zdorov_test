@@ -38,7 +38,12 @@ $this->title = 'Список пользователей'
     <tbody class="table-hover">
     <?php foreach ($users as $user) : ?>
         <tr>
-            <td><?= $user->username ?></td>
+            <td><?= $user->username ?>
+
+                <?php if ($user->email) :?>
+                    <br/>(<?=$user->email?>)
+                <?php endif;?>
+            </td>
             <td><?= helpers\User::status($user->status) ?></td>
             <td><?= helpers\User::getRoleName($user->getRole()) ?></td>
             <td><?= $user->created_at ?></td>

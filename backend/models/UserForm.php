@@ -7,6 +7,7 @@ class UserForm extends Model
 {
     public $user_id;
     public $username;
+    public $email;
     public $status;
     public $role;
     public $created_at;
@@ -16,6 +17,7 @@ class UserForm extends Model
         $form             = new self();
         $form->user_id    = $user->getId();
         $form->username   = $user->username;
+        $form->email      = $user->email;
         $form->status     = $user->status;
         $form->role       = $user->getRole()->name;
         $form->created_at = $user->created_at;
@@ -27,6 +29,8 @@ class UserForm extends Model
     public function rules() {
         return [
             [['user_id', 'username', 'role', 'status'], 'required'],
+            ['username', 'string' , 'max' => 255],
+            ['email', 'email'],
             ['user_id', 'integer'],
             ['status', 'in', 'range' => User::STATUSES],
             ['role', 'in', 'range' => User::ROLES],

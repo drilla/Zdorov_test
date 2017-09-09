@@ -93,13 +93,15 @@ class UserController extends Controller
          * сохраняем только если данные изменились
          */
         if (
-            $userForm->username && $user->username !== $userForm->username ||
-            $userForm->status && $user->status !== $userForm->status
+            $user->username !== $userForm->username ||
+            $user->status !== $userForm->status ||
+            $user->email !== $userForm->email
 
         ) {
             $user->username = $userForm->username;
             $user->status   = $userForm->status;
-            $user->save(true, [User::COL_USERNAME, User::COL_STATUS]);
+            $user->email    = $userForm->email;
+            $user->save(true);
         }
 
         /**
