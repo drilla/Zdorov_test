@@ -21,17 +21,11 @@ class UserController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['actions' => ['error'], 'allow' => true],
                     ['actions' => ['list'], 'allow' => true, 'roles' => [Rbac::PERM_USER_LIST]],
                     ['actions' => ['edit'], 'allow' => true, 'roles' => [Rbac::PERM_USER_EDIT]],
                     ['actions' => ['validate'], 'allow' => true, 'roles' => [Rbac::PERM_USER_VALIDATE]],
                     ['actions' => ['save'], 'allow' => true, 'roles' => [Rbac::PERM_USER_SAVE]],
                     ['actions' => ['delete'], 'allow' => true, 'roles' => [Rbac::PERM_USER_DELETE]],
-
-                    [
-                        'allow' => true,
-                        'roles' => [User::ROLE_ADMIN],
-                    ],
                 ],
             ],
             'verbs' => [

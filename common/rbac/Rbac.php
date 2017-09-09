@@ -21,8 +21,8 @@ class Rbac
     const PERM_SITE_LOGIN  = 'site_login';
     const PERM_SITE_LOGOUT = 'site_logout';
 
-    const PERM_REQUEST_LIST         = 'request_list';
-    const PERM_REQUEST_STATE_CHANGE = 'request_state_change';
+    const PERM_ORDER_LIST         = 'order_list';
+    const PERM_ORDER_STATE_CHANGE = 'order_state_change';
 
     const PERM_ERROR  = 'error';
 
@@ -45,7 +45,7 @@ class Rbac
         self::PERM_SITE_LOGIN,
         self::PERM_SITE_LOGOUT,
 
-        self::PERM_REQUEST_LIST,
-        self::PERM_REQUEST_STATE_CHANGE,
+        self::PERM_ORDER_LIST,
+        self::PERM_ORDER_STATE_CHANGE,
     ];
 }

@@ -16,7 +16,7 @@ class SiteController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['actions' => ['index'], 'allow' => true],
+                    ['actions' => ['index', 'error'], 'allow' => true],
                     ['actions' => ['login'], 'allow' => true, 'roles' => [Rbac::ROLES_NOT_AUTHORIZED]],
                     ['actions' => ['logout'], 'allow' => true, 'roles' => [Rbac::PERM_SITE_LOGOUT],
                     ],
@@ -31,13 +31,7 @@ class SiteController extends Controller
         ];
     }
 
-    public function actions() {
-        return [
-            'error' => [
-                'class' => ErrorAction::class,
-            ],
-        ];
-    }
+    public function actions() {return ['error' => ['class' => ErrorAction::class,]];}
 
     /**
      * Displays homepage.

@@ -42,7 +42,7 @@ class ProductRequest extends ActiveRecord
     /** @var Product */
     protected $product = null;
 
-    public static function tableName() {return 'product_request';}
+    public static function tableName() {return 'order';}
 
     public static function createNew(array $config = []) : self {
         $productRequest = new productRequest($config);

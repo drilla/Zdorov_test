@@ -26,8 +26,8 @@ if ($user->can(Rbac::PERM_SITE_INDEX)) {
 if ($user->getIsGuest()) {
     $menuItems[] = ['label' => 'Вход', 'url' => [Url::toRoute('login')]];
 }
-if ($user->can(Rbac::PERM_REQUEST_LIST)) {
-    $menuItems[] = ['label' => 'Заявки', 'url' => [Url::toRoute('request/list')]];
+if ($user->can(Rbac::PERM_ORDER_LIST)) {
+    $menuItems[] = ['label' => 'Заявки', 'url' => [Url::toRoute('order/list')]];
 }
 
 if ($user->can(Rbac::PERM_USER_LIST)) {

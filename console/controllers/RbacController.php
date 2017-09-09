@@ -39,8 +39,8 @@ class RbacController extends Controller
         $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_SITE_INDEX));
         $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_SITE_LOGOUT));
         $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_USER_LIST));
-        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_REQUEST_LIST));
-        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_REQUEST_STATE_CHANGE));
+        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_ORDER_LIST));
+        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_ORDER_STATE_CHANGE));
 
         $auth->addChild($roleAdmin, $auth->getPermission(Rbac::PERM_USER_EDIT));
         $auth->addChild($roleAdmin, $auth->getPermission(Rbac::PERM_USER_VALIDATE));
