@@ -3,6 +3,7 @@
 namespace console\controllers;
 
 use backend\models\User;
+use common\rbac\Rbac;
 use yii\console\Controller;
 
 class RbacController extends Controller
@@ -21,13 +22,30 @@ class RbacController extends Controller
         //Удаляем всех пользователей
         User::deleteAll();
 
-        // Создадим роли админа и редактора новостей
-        $roleAdmin   = $auth->createRole(User::ROLE_ADMIN);
-        $roleManager = $auth->createRole(User::ROLE_MANAGER);
+        //создаем разрешения
+        foreach (Rbac::PERMISSIONS as $permission) {
+            $auth->add($auth->createPermission($permission));
+        }
+
+        // Создадим роли
+        $roleAdmin   = $auth->createRole(Rbac::ROLE_ADMIN);
+        $roleManager = $auth->createRole(Rbac::ROLE_MANAGER);
 
         $auth->add($roleAdmin);
         $auth->add($roleManager);
-        $auth->addChild($roleManager, $roleAdmin);
+        $auth->addChild($roleAdmin, $roleManager);
+
+        //назначем ролям разрешения
+        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_SITE_INDEX));
+        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_SITE_LOGOUT));
+        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_USER_LIST));
+        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_REQUEST_LIST));
+        $auth->addChild($roleManager, $auth->getPermission(Rbac::PERM_REQUEST_STATE_CHANGE));
+
+        $auth->addChild($roleAdmin, $auth->getPermission(Rbac::PERM_USER_EDIT));
+        $auth->addChild($roleAdmin, $auth->getPermission(Rbac::PERM_USER_VALIDATE));
+        $auth->addChild($roleAdmin, $auth->getPermission(Rbac::PERM_USER_SAVE));
+        $auth->addChild($roleAdmin, $auth->getPermission(Rbac::PERM_USER_DELETE));
 
 
         /**
@@ -35,8 +53,11 @@ class RbacController extends Controller
          * Пароль одинаковый, для простоты провекри работы
          */
 
+        //админы
         $auth->assign($roleAdmin, $this->_createUser('admin', 'qwerty')->getId());
         $auth->assign($roleAdmin, $this->_createUser('chief', 'qwerty')->getId());
+
+        //менеджеры
         $auth->assign($roleManager, $this->_createUser('employee', 'qwerty')->getId());
         $auth->assign($roleManager, $this->_createUser('manager', 'qwerty')->getId());
         $auth->assign($roleManager, $this->_createUser('redactor', 'qwerty')->getId());

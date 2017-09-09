@@ -7,6 +7,7 @@ use yii\bootstrap\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Url;
+use \common\rbac\Rbac;
 
 NavBar::begin([
     'brandLabel' => 'Мини-CRM система',
@@ -15,17 +16,29 @@ NavBar::begin([
         'class' => 'navbar-inverse navbar-fixed-top',
     ],
 ]);
-$menuItems = [
-    ['label' => 'На главную', 'url' => [Url::home()]],
-];
-if (Yii::$app->user->isGuest) {
+
+$user = Yii::$app->user;
+$menuItems = [];
+
+if ($user->can(Rbac::PERM_SITE_INDEX)) {
+    $menuItems[] = ['label' => 'На главную', 'url' => [Url::home()]];
+}
+if ($user->getIsGuest()) {
     $menuItems[] = ['label' => 'Вход', 'url' => [Url::toRoute('login')]];
-} else {
+}
+if ($user->can(Rbac::PERM_REQUEST_LIST)) {
+    $menuItems[] = ['label' => 'Заявки', 'url' => [Url::toRoute('request/list')]];
+}
+
+if ($user->can(Rbac::PERM_USER_LIST)) {
     $menuItems[] = ['label' => 'Пользователи', 'url' => [Url::toRoute('user/list')]];
+}
+
+if ($user->can(Rbac::PERM_SITE_LOGOUT)) {
     $menuItems[] = '<li>'
         . Html::beginForm([Url::toRoute('site/logout')], 'post')
         . Html::submitButton(
-            'Выйти (' . Yii::$app->user->identity->username . ')',
+            'Выйти (' . $user->identity->username . ')',
             ['class' => 'btn btn-link logout']
         )
         . Html::endForm()

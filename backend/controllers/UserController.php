@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\User;
 use backend\models\UserForm;
+use common\rbac\Rbac;
 use yii\bootstrap\ActiveForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -20,15 +21,13 @@ class UserController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    [
-                        'actions' => ['error', 'fix'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['list'],
-                        'allow' => true,
-                        'roles' => [User::ROLE_MANAGER],
-                    ],
+                    ['actions' => ['error'], 'allow' => true],
+                    ['actions' => ['list'], 'allow' => true, 'roles' => [Rbac::PERM_USER_LIST]],
+                    ['actions' => ['edit'], 'allow' => true, 'roles' => [Rbac::PERM_USER_EDIT]],
+                    ['actions' => ['validate'], 'allow' => true, 'roles' => [Rbac::PERM_USER_VALIDATE]],
+                    ['actions' => ['save'], 'allow' => true, 'roles' => [Rbac::PERM_USER_SAVE]],
+                    ['actions' => ['delete'], 'allow' => true, 'roles' => [Rbac::PERM_USER_DELETE]],
+
                     [
                         'allow' => true,
                         'roles' => [User::ROLE_ADMIN],
