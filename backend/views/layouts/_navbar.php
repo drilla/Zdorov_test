@@ -23,15 +23,19 @@ $menuItems = [];
 if ($user->can(Rbac::PERM_SITE_INDEX)) {
     $menuItems[] = ['label' => 'На главную', 'url' => [Url::home()]];
 }
+
+
+$menuItems[] = ['label' => 'Подать заявку', 'url' => '//' . Url::to(Yii::$app->params['frontendHost'])];
+
 if ($user->getIsGuest()) {
-    $menuItems[] = ['label' => 'Вход', 'url' => [Url::toRoute('login')]];
+    $menuItems[] = ['label' => 'Вход', 'url' => Url::toRoute('login')];
 }
 if ($user->can(Rbac::PERM_ORDER_LIST)) {
-    $menuItems[] = ['label' => 'Заявки', 'url' => [Url::toRoute('order/list')]];
+    $menuItems[] = ['label' => 'Заявки', 'url' => Url::toRoute('order/list')];
 }
 
 if ($user->can(Rbac::PERM_USER_LIST)) {
-    $menuItems[] = ['label' => 'Пользователи', 'url' => [Url::toRoute('user/list')]];
+    $menuItems[] = ['label' => 'Пользователи', 'url' => Url::toRoute('user/list')];
 }
 
 if ($user->can(Rbac::PERM_SITE_LOGOUT)) {
