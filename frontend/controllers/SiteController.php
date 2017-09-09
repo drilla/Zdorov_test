@@ -1,7 +1,7 @@
 <?php
 namespace frontend\controllers;
 
-use frontend\models\ProductRequest;
+use Frontend\models\OrderForm;
 use Yii;
 use yii\bootstrap\ActiveForm;
 use yii\web\BadRequestHttpException;
@@ -11,27 +11,20 @@ use yii\web\Response;
 
 class SiteController extends Controller
 {
-    public function actions() {
-        return [
-            'error' => [
-                'class' => ErrorAction::class,
-            ]
-        ];
-    }
+    public function actions() { return ['error' => ['class' => ErrorAction::class]]; }
 
     public function actionIndex() {
         return $this->render('index');
     }
 
     /**
-     * валидания и создание новой заявки
+     * валидания/создание новой заявки
      */
     public function actionCreate() {
         $request = Yii::$app->request;
 
-        $newProductRequest = new ProductRequest();
-        $newProductRequest->setScenario(ProductRequest::SCENARIO_CREATE);
-        $newProductRequest->load($request->post());
+        $order = new OrderForm();
+        $order->load($request->post());
 
         /**
          * провалидируем форму, если она пришла аяксом и отправим ответ
@@ -39,13 +32,13 @@ class SiteController extends Controller
         if ($request->getIsAjax()) {
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            return ActiveForm::validate($newProductRequest);
+            return ActiveForm::validate($order);
         } else {
 
             /**
              * Форма должна быть проавлидирована, если это не так значит возможно данные формы изменились.
              */
-            if (!$newProductRequest->validate()) {
+            if (!$order->validate()) {
                 throw new BadRequestHttpException('Переданы неправильные данные формы.');
             }
 

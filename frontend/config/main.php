@@ -22,7 +22,6 @@ return [
             'enablePrettyUrl' => true, // запрещаем r= routes
             'showScriptName' => false, // запрещаем index.php
             'rules' => [
-               // '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                'create' => 'site/create',
                'success' => 'site/success',
             ],
