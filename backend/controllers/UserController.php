@@ -4,7 +4,6 @@ namespace backend\controllers;
 
 use backend\models\User;
 use backend\models\UserForm;
-use common\rbac\Rbac;
 use yii\bootstrap\ActiveForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -130,11 +129,11 @@ class UserController extends Controller
     public function actionDelete(int $id) {
         if (!\Yii::$app->request->isAjax) throw new BadRequestHttpException();
 
-        $user = User::findIdentity($id);
+        $user = User::findById($id);
 
         if (!$user) throw new NotFoundHttpException('Пользователь не найден');
 
-       $user->delete();
+        $user->delete();
 
         return $this->asJson(['redirect' => Url::toRoute('user/list')]);
     }

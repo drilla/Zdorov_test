@@ -33,7 +33,7 @@ class UserForm extends Model
             ['email', 'email'],
             ['user_id', 'integer'],
             ['status', 'in', 'range' => User::STATUSES],
-            ['role', 'in', 'range' => User::ROLES],
+            ['role', 'in', 'range' => \backend\components\User::ROLES],
         ];
     }
 }
