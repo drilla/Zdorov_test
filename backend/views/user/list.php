@@ -4,10 +4,9 @@
  * @var \backend\models\User[] $users
  */
 
-use backend\models\User;
 use yii\bootstrap\Modal;
 use \yii\helpers\Url;
-use \frontend\views\helpers;
+use \backend\views\helpers;
 
 $this->title = 'Список пользователей'
 ?>

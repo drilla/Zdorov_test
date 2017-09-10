@@ -26,18 +26,18 @@ $menuItems[] = ['label' => 'Подать заявку', 'url' => '//' . Url::to(
 if ($user->isGuest()) {
     $menuItems[] = ['label' => 'Вход', 'url' => Url::toRoute('login')];
 }
-if ($user->isManager() || $user->isAdmin()) {
-    $menuItems[] = ['label' => 'Заявки', 'url' => Url::toRoute('order/list')];
-}
 
 if ($user->isManager() || $user->isAdmin()) {
+    $menuItems[] = ['label' => 'Заявки', 'url' => Url::toRoute('order/list')];
     $menuItems[] = ['label' => 'Пользователи', 'url' => Url::toRoute('user/list')];
+    $menuItems[] = ['label' => 'Товары', 'url' => Url::toRoute('product/list')];
+
 }
 
 if (!$user->isGuest()) {
     /** @var \backend\models\User $identity */
     $identity = $user->getIdentity();
-    $role =  \frontend\views\helpers\User::getRoleName($identity->getRole());
+    $role =  \backend\views\helpers\User::getRoleName($identity->getRole());
     $menuItems[] = '<li>'
         . Html::beginForm([Url::toRoute('site/logout')], 'post')
         . Html::submitButton(

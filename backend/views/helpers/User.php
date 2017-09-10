@@ -1,5 +1,5 @@
 <?php
-namespace frontend\views\helpers;
+namespace backend\views\helpers;
 
 use backend\models;
 use yii\rbac\Role as UserRole;

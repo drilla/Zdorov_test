@@ -35,4 +35,15 @@ class Product extends ActiveRecord
     public static function findById(int $id) {
         return self::find()->where(['id' => $id])->one();
     }
+
+    public function isActive() : bool {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+
+    public function toggleStatus() {
+        $this->status = $this->isActive()
+            ? self::STATUS_NOT_ACTIVE
+            : self::STATUS_ACTIVE
+        ;
+    }
 }
