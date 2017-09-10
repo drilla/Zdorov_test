@@ -22,10 +22,12 @@ class Product extends ActiveRecord
 
     public function rules() {
         return [
-            [[self::COL_NAME, self::COL_PRICE, self::COL_STATUS], 'required'],
-            [self::COL_NAME, 'string', 'max' => 256],
-            [self::COL_PRICE, 'double', 'min' => 0],
-            [self::COL_STATUS, 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE]],
+            [
+                [self::COL_NAME, self::COL_PRICE, self::COL_STATUS], 'required'],
+                [self::COL_NAME, 'string', 'max' => 256],
+                [self::COL_PRICE, 'double', 'min' => 0],
+                [self::COL_STATUS, 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_NOT_ACTIVE]
+            ],
         ];
     }
 
@@ -34,6 +36,13 @@ class Product extends ActiveRecord
     /** @return self | null */
     public static function findById(int $id) {
         return self::find()->where(['id' => $id])->one();
+    }
+
+    /**
+     * @return self[]
+     */
+    public static function findActive() : array {
+        return self::findAll([self::COL_STATUS => self::STATUS_ACTIVE]);
     }
 
     public function isActive() : bool {

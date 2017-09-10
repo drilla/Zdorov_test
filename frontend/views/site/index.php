@@ -5,6 +5,7 @@
  */
 
 use frontend\models\OrderForm;
+use frontend\views\helpers\Product;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Html;
 
@@ -39,10 +40,11 @@ $this->title = 'Новая заявка';
                     'validationUrl'          => \yii\helpers\Url::toRoute('create'),
                 ]); ?>
 
-                    <?= $form->field($model, 'product_id')->dropDownList([1, 2, 3], ['autofocus' => true]) ?>
-                    <?= $form->field($model, 'client_name')->textInput() ?>
-                    <?= $form->field($model, 'client_phone')->textInput() ?>
-                    <?= $form->field($model, 'client_comment')->textarea(['rows' => 5]) ?>
+                    <?= $form->field($model, 'product_id')
+                        ->dropDownList(Product::dropDownListItems(), ['autofocus' => true])->label('Продукт') ?>
+                    <?= $form->field($model, 'client_name')->textInput()->label('Ваше имя') ?>
+                    <?= $form->field($model, 'client_phone')->textInput()->label('Телефон') ?>
+                    <?= $form->field($model, 'client_comment')->textarea(['rows' => 5])->label('Комментарий') ?>
 
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-3">
