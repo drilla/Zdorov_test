@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\rbac\Rbac;
+use common\models\Order;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -30,7 +30,9 @@ class OrderController extends Controller
         ];
     }
 
-    public function actionList() {}
+    public function actionList() {
+        return $this->render('list',  ['orders' => Order::find()->all()]);
+    }
 
     public function actionStateChange() {}
 }

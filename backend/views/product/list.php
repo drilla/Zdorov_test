@@ -22,7 +22,7 @@ $this->title = 'Товары'
     <tr>
         <th>Название</th>
         <th>Цена</th>
-        <th>Роль</th>
+        <th>Статус</th>
         <?php if (Yii::$app->user->isAdmin()) : ?>
             <th>Управление</th>
         <?php endif; ?>

@@ -80,7 +80,14 @@ class Order extends ActiveRecord
         ];
     }
 
-    public function getProduct() {
-        return Product::findById($this->product_id);
+    public function getProduct() : Product {
+        $product = Product::findById($this->product_id);
+
+        if (!$product) {
+            //у нас не запланирована ситуация удаления продукта - по заданию
+            throw new \DomainException('product not found!');
+        }
+
+        return $product;
     }
 }
