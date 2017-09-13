@@ -32,13 +32,20 @@ $this->title = 'Заявки'
     </thead>
     <tbody class="table-hover">
     <?php foreach ($orders as $order) : ?>
-        <tr>
+        <tr
+            data-url="<?= \yii\helpers\Url::toRoute('order/state-change')?>"
+            data-order-id="<?= $order->id ?>">
             <td><?= $order->id ?></td>
             <td><?= helpers\Order::createDate($order) ?></td>
             <td><?= $order->client_name ?></td>
             <td><?= $order->client_phone ?></td>
             <td><?= $order->getProduct()->name ?></td>
-            <td><?= helpers\Order::status($order) ?></td>
+            <td><?= \yii\bootstrap\Html::dropDownList(
+                    'state',
+                    $order->status,
+                    helpers\Order::statusListItems(),
+                    ['class' => 'js-active-dropdown']) ?>
+            </td>
             <td><?= helpers\Product::priceRub($order->getProduct()) ?></td>
             <td><?= $order->client_comment ?></td>
             <td>Изменения</td>

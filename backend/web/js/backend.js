@@ -1,4 +1,13 @@
 $(document).ready(function() {
+
+    var showFlashMessage = function (text, $container, level) {
+        var cssClass = 'text-' + level;
+        var $flashMessage = $('<span>' + text + '</span>').addClass(cssClass);
+
+        $container.html($flashMessage);
+        $flashMessage.fadeOut('slow');
+    };
+
     /**
      * настройка модального окна из активировавшей его кнопки
      */
@@ -28,6 +37,41 @@ $(document).ready(function() {
                 .fail(function () {
                     $modal.find('.modal-body').html('<div class="bg-danger">Возникла ошибка!</div>');
                 });
+        });
+    });
+
+    /**
+     * Сохранение параметра, при выборе его из DropDown
+     */
+    $('body').on('change', '.js-active-dropdown', function(event) {
+        var $dropDown = $(event.currentTarget);
+        var $parentRow = $dropDown.closest('tr');
+        var $flashMessageContainer;
+
+        /** убираем старые контейнеры */
+        $parentRow.find('.js-flash-message-container').remove();
+
+        /** новый делаем после контрола */
+        $flashMessageContainer = $('<div></div>').addClass('js-flash-message-container');
+        $dropDown.after($flashMessageContainer);
+
+        var url = $parentRow.data('url');
+        $.ajax(url, {
+            method: 'post',
+            data: {
+                orderId: $parentRow.data('orderId'),
+                newState: $dropDown.find('option:selected').val()
+            },
+            success: function (response) {
+                if (response.result === 1) {
+                    showFlashMessage('Сохранено', $flashMessageContainer, 'success');
+                } else {
+                    showFlashMessage('Ошибка!', $flashMessageContainer, 'danger');
+                }
+            },
+            error : function () {
+                showFlashMessage('Ошибка!', $flashMessageContainer, 'danger');
+            }
         });
     });
 });
