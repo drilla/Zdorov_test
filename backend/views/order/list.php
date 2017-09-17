@@ -48,7 +48,9 @@ $this->title = 'Заявки'
             </td>
             <td><?= helpers\Product::priceRub($order->getProduct()) ?></td>
             <td><?= $order->client_comment ?></td>
-            <td>Изменения</td>
+            <td>
+                <a class="" href="<?= \yii\helpers\Url::toRoute(['order-history/list', 'order_id' => $order->id]) ?>">Изменения</a>
+            </td>
         </tr>
     <?php endforeach;?>
     </tbody>

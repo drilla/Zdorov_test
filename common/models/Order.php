@@ -2,7 +2,8 @@
 
 namespace common\models;
 
-use frontend\models\OrderForm;
+use backend\models\User;
+use backend\models\Order\HistoryRecord;
 use yii\db\ActiveRecord;
 
 /**
@@ -43,22 +44,6 @@ class Order extends ActiveRecord
 
     public static function tableName() {return 'order';}
 
-    public static function createByForm(OrderForm $form) : self {
-        $order           = new Order();
-        $order->scenario = self::SCENARIO_CREATE;
-
-        $order->product_id     = $form->product_id;
-        $order->client_name    = $form->client_name;
-        $order->client_phone   = $form->client_phone;
-        $order->client_comment = $form->client_comment;
-
-        if (!$order->validate()) {
-            throw new \DomainException(join(", \n", $order->getErrors()));
-        }
-
-        return $order;
-    }
-
     public function rules() {
         return [
             [[Order::COL_PRODUCT_ID, Order::COL_CLIENT_NAME, Order::COL_CLIENT_PHONE], 'required'],
@@ -89,5 +74,36 @@ class Order extends ActiveRecord
         }
 
         return $product;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function afterSave($insert, $oldValues) {
+        parent::afterSave($insert, $oldValues);
+
+        if (!$insert) {
+            /** @var User | null $user */
+            $user = \Yii::$app->getUser()->getIdentity();
+        } else {
+            $user = null;
+        }
+
+        $newValues = [];
+        foreach ($oldValues as $attr => $value) {
+            $newValues[$attr] = $this->getAttribute($attr);
+        }
+
+        if ($insert) {
+            $oldValues = [];
+        }
+
+        $orderHistoryRecord = HistoryRecord::create($user, $this, $oldValues, $newValues);
+
+        $isSaved = $orderHistoryRecord->save();
+
+        if (!$isSaved) {
+            throw new \Exception('History not saved! '. var_export($orderHistoryRecord->getErrors(), true));
+        }
     }
 }

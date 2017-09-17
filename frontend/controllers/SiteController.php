@@ -49,7 +49,7 @@ class SiteController extends Controller
                 throw new \Exception('Продукт не найден');
             }
 
-            $order = Order::createByForm($orderForm);
+            $order = $orderForm->createOrder();
 
             if (!$order->save()) {
                 throw new \Exception('Заказ создать не удалось');

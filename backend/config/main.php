@@ -23,15 +23,16 @@ return [
             'enablePrettyUrl' => true, // запрещаем r= routes
             'showScriptName'  => false, // запрещаем index.php
             'rules' => [
-                '/'                             => 'site/index',
-                'error'                         => 'site/error',
-                'user'                          => 'user/list',
-                'user/edit/<id:\d+>'            => 'user/edit',
-                'user/delete/<id:\d+>'          => 'user/delete',
-                'product/toggle-state/<id:\d+>' => 'product/toggle-state',
+                '/'                                 => 'site/index',
+                'error'                             => 'site/error',
+                'user'                              => 'user/list',
+                'user/edit/<id:\d+>'                => 'user/edit',
+                'user/delete/<id:\d+>'              => 'user/delete',
+                'product/toggle-state/<id:\d+>'     => 'product/toggle-state',
+                'order-history/list/<order_id:\d+>' => 'order-history/list',
 
-                '<action:\w+>'                           => 'site/<action>',
-                '<controller:\w+>/<action:\w+>'          => '<controller>/<action>',
+                '<action:\w+>'                      => 'site/<action>',
+                '<controller:\w+>/<action:\w+>'     => '<controller>/<action>',
             ],
         ],
         'user' => [
