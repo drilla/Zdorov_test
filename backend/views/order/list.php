@@ -14,6 +14,9 @@ $this->title = 'Заявки'
     <div class="col-lg-10">
         <h1 class="h2"><?= $this->title ?></h1>
     </div>
+    <div class="col-lg-2">
+        <a class="btn btn-info" href="<?= \yii\helpers\Url::toRoute('order/export')?>">Экспорт</a>
+    </div>
 </div>
 
 <table class="table">

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Order\Export;
 use common\models\Order;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -20,7 +21,7 @@ class OrderController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['actions' => ['list', 'state-change'], 'allow' => true, 'roles' => ['@']],
+                    ['actions' => ['list', 'state-change', 'export'], 'allow' => true, 'roles' => ['@']],
                 ],
             ],
             'verbs'  => [
@@ -28,6 +29,7 @@ class OrderController extends Controller
                 'actions' => [
                     'stateChange' => ['post'],
                     'list'        => ['get'],
+                    'export'      => ['get'],
                 ],
             ],
         ];
@@ -65,5 +67,15 @@ class OrderController extends Controller
         }
 
         return $this->asJson([self::KEY_RESULT => self::RESULT_SUCCESS]);
+    }
+
+    public function actionExport() {
+        $orders = Order::find()->all();
+
+        $filePath = Export::generateCsv($orders);
+
+        $response = \Yii::$app->getResponse()->sendFile($filePath, Export::getReadableFilename());
+
+        return $response;
     }
 }
