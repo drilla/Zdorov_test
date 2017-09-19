@@ -3,13 +3,22 @@
  * история изменений заявок
  *
  * @var \backend\models\Order\HistoryRecord[] $records
+ * @var int                                   $orderId
  * @var  \yii\web\View                        $this
  */
-$this->title = 'История изменений заявок'
+use yii\helpers\Url;
+
+$this->title = 'История изменений заявок';
+
+$deleteUrl = Url::toRoute(['order-history/clear', 'order_id' => $orderId]);
+
 ?>
 <div class="row">
     <div class="col-lg-10">
         <h1 class="h2"><?= $this->title ?></h1>
+    </div>
+    <div class="col-lg-2">
+        <span class="btn btn-danger js-btn-delete" data-url="<?= $deleteUrl ?>">Очистить историю</span>
     </div>
 </div>
 

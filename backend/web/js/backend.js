@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    /** в указанном контейнере появится текст, который медленно исчезнет */
     var showFlashMessage = function (text, $container, level) {
         var cssClass = 'text-' + level;
         var $flashMessage = $('<span>' + text + '</span>').addClass(cssClass);
@@ -74,4 +75,24 @@ $(document).ready(function() {
             }
         });
     });
+
+    /** Стандартная реакция на кнопку удаления - перезагрузка страницы. Эта кнопка без подтверждения
+     * data-url - адрес, куда будет направлен пост запрос
+     * в случае ошибки - будет выведено сообщение под кнопкой(временное) */
+    $('body').on('click', '.js-btn-delete', function(event) {
+        var $button = $(event.currentTarget);
+        var url = $button.data('url');
+
+        $.ajax(url, {
+            method  : 'post',
+            success : function () {
+                window.location.reload(true);
+            },
+            error : function() {
+                var $container = $('<div></div>');
+                $button.after($container);
+                showFlashMessage('Ошибка!', $container, 'danger');
+            }
+        })
+    })
 });

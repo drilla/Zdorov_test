@@ -86,6 +86,7 @@ class Order extends ActiveRecord
             /** @var User | null $user */
             $user = \Yii::$app->getUser()->getIdentity();
         } else {
+            //создавать новые заявки могут только клиенты
             $user = null;
         }
 

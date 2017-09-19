@@ -15,7 +15,13 @@ class HistoryRecord
     }
 
     public function product() : string {
-        return $this->_record->getOrder()->getProduct()->name;
+        $order = $this->_record->getOrder();
+
+        if ($order) {
+            return $this->_record->getOrder()->getProduct()->name;
+        } else {
+            return 'Заявка удалена!';
+        }
     }
 
     /**
